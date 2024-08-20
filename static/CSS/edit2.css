@@ -1,0 +1,62 @@
+.ImageContainer {
+  background-color: rgba(191, 193, 195, 0.473);
+  width: 40%;
+  height: 80%;
+  margin-left: 5%;
+  margin-top: 5%;
+  float: left;
+  display: flex;
+  flex-direction: column; /* Bilder untereinander anordnen */
+  justify-content: flex-start; /* Bilder oben beginnen lassen */
+  align-items: center;
+  border-radius: 10%;
+  overflow: auto; /* Scrollbar, wenn Inhalte größer sind */
+}
+
+.image {
+  width: auto;
+  max-width: 90%; /* Maximale Breite auf 90% des Containers beschränken */
+  height: auto;
+  max-height: 80%; /* Maximale Höhe auf 40% des Containers beschränken */
+  object-fit: contain; /* Bild anpassen, ohne Verzerrung */
+  object-position: center;
+  margin-bottom: 20px; /* Abstand zwischen den Bildern */
+}
+
+.InfoContainer2 {
+  background-color: rgba(191, 193, 195, 0.473);
+  width: 15%;
+  height: 80%;
+  margin-left: 5%;
+  float: left;
+  margin-top: 5%;
+  display: flex;
+  align-items: center;
+  border-radius: 10%;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.Datum{
+  background-color: rgba(191, 193, 195, 0.473);
+  width: 80%;
+  height: 6%;
+  margin-left: 5%;
+  float: left;
+  margin-top: 5%;
+  display: flex;
+  align-items: center;
+  border-radius: 10%;
+  flex-direction: column;
+
+}
+input[disabled] {
+  background-color: white;  /* Set the background color */
+  color: black;              /* Set the text color */
+  opacity: 1;                /* Ensure full opacity */
+}
+
+/* Prevent changes to borders or other styles on disable */
+input[disabled]::placeholder {
+  color: #999;               /* You can also style the placeholder text */
+}

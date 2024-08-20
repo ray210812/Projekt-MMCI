@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 9
+names: ['Zimmerpflanze', 'dungen', 'halb sonnig schattig', 'keine Sonne', 'mittel giesen', 'schattig', 'sonnig', 'viel giesen', 'wenig giesen']
+
+roboflow:
+  workspace: new-workspace-yhvyj
+  project: projekt-t8qbe
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/new-workspace-yhvyj/projekt-t8qbe/dataset/1

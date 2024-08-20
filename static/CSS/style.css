@@ -1,0 +1,158 @@
+body {
+   background-image: url("../images/pexels-dana-tentis-118658-370799.jpg");
+   height: 100%;
+   width: 100%;
+   float: left;
+   background-repeat: no-repeat; /* Verhindert die Wiederholung des Bildes */
+    background-position: center; /* Zentriert das Bild */
+    background-size: cover;
+}
+
+html, body {
+   height: 100%;
+   margin: 0;
+}
+
+
+
+#ADD{
+   background-color: rgba(191, 193, 195, 0.473);
+   height: 80%;
+   width: 27%;
+   float: left;
+   margin-right: 3%;
+   margin-left: 3%;
+   margin-top: 5%;
+   border-radius: 10%;
+   display: flex; 
+   justify-content: center; 
+   align-items: center; 
+
+}
+
+#delete{
+   background-color: rgba(191, 193, 195, 0.473);
+   height: 80%;
+   width: 27%;
+   float: left;
+   border-radius: 10%;
+   margin-top: 5%;
+   display: flex; 
+   justify-content: center; 
+   align-items: center;
+}
+#Info{
+   background-color: rgba(191, 193, 195, 0.473);
+   height: 80%;
+   width: 27%;
+   float: left;
+   margin-left: 3%;
+   margin-right: 3%;
+   border-radius: 10%;
+   margin-top: 5%;
+   display: flex; 
+   justify-content: center; 
+   align-items: center;
+}
+
+.sidebar.hidden {
+   display: none;
+ }
+
+ .sidebar{
+   height: 100vh;
+   width: 5vh;
+   background-color: rgba(191, 193, 195, 0.473);
+   border-top-right-radius: 20px;
+   border-bottom-right-radius: 20px;
+   float: left;
+   }
+ 
+ .house_logo{
+   height: 3vh;
+   width: 3vh;
+   position: relative;
+   top: 1cm;
+   left: 0.3cm;
+   font: bold;
+   margin-bottom: 0.3cm;
+ }
+
+ .add_logo{
+   height: 3vh;
+   width: 3vh;
+   position: relative;
+   top: 1cm;
+   left: 0.3cm;
+   font: bold;
+   margin-bottom: 0.3cm;
+ }
+
+ .info_logo{
+   height: 3vh;
+   width: 3vh;
+   position: relative;
+   top: 1cm;
+   left: 0.3cm;
+   font: bold;
+   margin-bottom: 0.3cm;
+ }
+
+ .delete_logo{
+   height: 3vh;
+   width: 3vh;
+   position: relative;
+   top: 1cm;
+   left: 0.3cm;
+   font: bold;
+   margin-bottom: 0.3cm;
+ }
+
+ .menü{
+   height: 3vh;
+   width: 3vh;
+   position: absolute;
+   top: 0.3cm;
+   left: 0.3cm;
+   
+ }
+
+ .addIcon ,.infoIcon{
+   width: 60%;
+   height: auto;
+   ;
+ }
+
+ .deleteIcon {
+  width: 60%;
+  height: auto;
+  color: #ac7a1e;
+}
+
+ .Container {
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   text-align: center;
+}
+
+#ADD:hover {
+   background-color: rgba(191, 193, 195, 0.669); /* Hintergrundfarbe bei Hover */
+ }
+ #delete:hover {
+   background-color: rgba(191, 193, 195, 0.669); /* Hintergrundfarbe bei Hover */
+ }
+
+ #Info:hover {
+   background-color: rgba(191, 193, 195, 0.669); /* Hintergrundfarbe bei Hover */
+ }
+.Text{
+   font-size: 150%;
+   
+}
+
+a {
+   text-decoration: none; 
+   color: inherit; 
+}

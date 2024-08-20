@@ -1,0 +1,166 @@
+body {
+  background-image: url("../images/pexels-dana-tentis-118658-370799.jpg");
+  background-repeat: no-repeat; /* Verhindert die Wiederholung des Bildes */
+    background-position: center; /* Zentriert das Bild */
+    background-size: cover;
+  height: 100%;
+  width: 100%;
+  float: left;
+  justify-content: center;
+  align-items: center;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.sidebar.hidden {
+  display: none;
+}
+
+.sidebar {
+  height: 100vh;
+  width: 5vh;
+  background-color: rgba(191, 193, 195, 0.473);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  float: left;
+}
+
+.house_logo,
+.add_logo,
+.info_logo,
+.delete_logo {
+  height: 3vh;
+  width: 3vh;
+  position: relative;
+  top: 1cm;
+  left: 0.3cm;
+  font: bold;
+  margin-bottom: 0.3cm;
+}
+
+.menü {
+  height: 3vh;
+  width: 3vh;
+  position: absolute;
+  top: 0.3cm;
+  left: 0.3cm;
+}
+
+.ImageContainer {
+  background-color: rgba(191, 193, 195, 0.473);
+  width: 55%;
+  height: 80%;
+  margin-left: 5%;
+  margin-top: 5%;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10%;
+ 
+}
+
+.InfoContainer {
+  background-color: rgba(191, 193, 195, 0.473);
+  width: 25%;
+  height: 80%;
+  margin-left: 5%;
+  float: left;
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10%;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.image {
+  width: auto;
+  height: 80%;
+  object-fit: contain; /* Passt das Bild an den Container an, ohne es zu beschneiden */
+  object-position: center; 
+  object-fit: contain; /* Passt das Bild an den Container an, beschneidet aber bei Bedarf */
+  object-position: center; /* Zentriert das Bild im Container */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+form label, form input, form select {
+  margin: 10px 0;
+}
+
+form input[type="submit"] {
+  align-self: center;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.Auflistung {
+  background-color: rgba(191, 193, 195, 0.473);
+  width: 80%;
+  height: 85%;
+  margin-left: 5%;
+  float: left;
+  margin-top: 5%;
+  
+  align-items: center;
+  border-radius: 10%;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.row {
+  background-color: rgba(191, 193, 195, 0.606);
+  width: 95%;
+  height: auto; /* Damit die Höhe sich an den Inhalt anpasst */
+  margin-top: 2%;
+  margin-left: 2.5%;
+  display: flex; /* Flexbox für das Layout */
+  align-items: center; /* Zentriert den Inhalt vertikal */
+  border-radius: 10%;
+}
+
+.row:hover {
+  background-color: rgba(191, 193, 195, 0.923); /* Hintergrundfarbe bei Hover */
+}
+
+.image-container {
+  flex: 0 0 250px; /* Fixe Breite für das Bild */
+  margin-right: 20px; /* Abstand zwischen Bild und Text */
+  margin-left: 5%;
+}
+
+.image-container img {
+  width: 100%; /* Bild auf Containergröße skalieren */
+  height: auto;
+  
+}
+
+.info-container {
+  flex: 1; /* Der Textbereich nimmt den restlichen Platz ein */
+}
+
+.info-container h5 {
+  margin: 5px 0; /* Geringer Abstand zwischen den Textzeilen */
+}
+
+a {
+  text-decoration: none; 
+  color: inherit; 
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="{{ url_for('static', filename='CSS/style.css') }}" rel="stylesheet" media="screen">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body >
+    <img class="menü"  id="menü"src="/static/list.svg"/>
+    <div class="sidebar">
+      
+        <a href="/"><img class="house_logo" src="/static/house.svg"/></a>
+      
+    
+        <a href="/"><img class="add_logo" src="/static/plus-circle-dotted.svg"/></a>
+    
+    
+        <a href="/"><img class="delete_logo" src="/static/x-circle.svg"/></a>
+    
+    
+        <a href="/"><img class="info_logo" src="/static/info-circle.svg"/></a>
+    
+    </div>
+      
+    <a href="/add"><div id="ADD">
+        <div class="Container">
+            
+
+            <img class="addIcon" src="/static/plus-circle.svg"/>
+            <h4 class="Text">Hinzufügen</h4>
+        </div>
+      
+
+    </div></a>
+    <a href="/benachrichtigung">
+        <div id="delete">
+            <div class="Container">
+                <img class="deleteIcon" src="/static/x-circle.svg"/>
+                <h4 class="Text">Benachrichtigung</h4>
+            </div>
+        </div>
+    </a>
+    <a href="/info">
+        <div id="Info">
+            <div class="Container">
+                <img class="infoIcon" src="/static/info-circle.svg"/>
+                <h4 class="Text">Infos</h4>
+            </div>
+        </div>
+    </a>
+
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const toggleSidebarBtn = document.getElementById('menü');
+          const sidebar = document.querySelector('.sidebar');
+      
+          toggleSidebarBtn.addEventListener('click', function () {
+            sidebar.classList.toggle('hidden');
+          });
+        });
+      </script>
+</body>
+
+</html>
