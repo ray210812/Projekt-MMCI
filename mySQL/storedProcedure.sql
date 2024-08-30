@@ -25,7 +25,7 @@ DECLARE currentDate DATE;
           WHERE b.Pflanzen_ID = Gießen.Pflanzen_ID
       );
 
-    -- Überprüfung für mittel gießen (7 Tage)
+   
    INSERT INTO Benachrichtigung (Datum,Pflanzen_ID, Info)
     SELECT distinct currentDate as Datum,  Gießen.Pflanzen_ID, "Info" as Info
     FROM (SELECT   MAX(Datum) as Datum, Pflanzen_ID  FROM mydb.gießen group by Pflanzen_ID order by Datum desc )as Gießen, Pflanzen p
@@ -40,7 +40,7 @@ DECLARE currentDate DATE;
       );
 
 
-    -- Überprüfung für viel gießen (3 Tage)
+   
    INSERT INTO Benachrichtigung (Datum,Pflanzen_ID, Info)
     SELECT distinct currentDate as Datum,  Gießen.Pflanzen_ID, "Info" as Info
     FROM  (SELECT   MAX(Datum) as Datum, Pflanzen_ID  FROM mydb.gießen group by Pflanzen_ID order by Datum desc )as Gießen, Pflanzen p
