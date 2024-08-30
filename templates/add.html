@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{{ url_for('static', filename='CSS/add.css') }}" rel="stylesheet" media="screen">
+  <title>Document</title>
+</head>
+<body>
+  <img class="menü"  id="menü"src="/static/list.svg"/>
+  <div class="sidebar">
+    
+      <a href="/"><img class="house_logo" src="/static/house.svg"/></a>
+    
+  
+      <a href="/"><img class="add_logo" src="/static/plus-circle-dotted.svg"/></a>
+  
+  
+      <a href="/"><img class="delete_logo" src="/static/x-circle.svg"/></a>
+  
+  
+      <a href="/"><img class="info_logo" src="/static/info-circle.svg"/></a>
+  
+  </div>
+  
+  <div class="Container">
+    <div class="folder">
+      <img class="folderIcon" src="/static/folder2-open.svg"/>
+    </div>
+
+    <h4>Datei lokal Hochladen</h4>
+
+    <form action="/"   method="post" enctype="multipart/form-data">
+        <input name="datei" type="file" size="50">   
+        <input type="submit" value="Bestätigen">
+    </form>
+
+
+  </div>
+
+  <div class="Container">
+    <div class="folder">
+      <img class="folderIcon" src="/static/box-arrow-in-down.svg"/>
+    </div>
+    <h4>Daten von externer Quelle </h4>
+    <img src="{{ image_data_url }}" alt="QR Code" class="QRCode">
+
+  </div>
+  <h1 id="uuid">{{ UUID}}</h1>
+  <script>
+     let boolean=true;
+    document.addEventListener('DOMContentLoaded', function () {
+      // Hier holen Sie sich den Inhalt des h1-Elements nach dem Laden des DOM
+      const hiddenText = document.getElementById('uuid').textContent;
+      
+      const toggleSidebarBtn = document.getElementById('menü');
+      const sidebar = document.querySelector('.sidebar');
+  
+      toggleSidebarBtn.addEventListener('click', function () {
+        sidebar.classList.toggle('hidden');
+      });
+  
+      // Funktion zur Überprüfung, ob eine Datei existiert
+      function checkFileExistence(filename) {
+        fetch('/check_file/' + filename)
+          .then(response => response.json())
+          .then(data => {
+            if (data.exists) {
+              console.log('Datei existiert');
+              boolean =false;
+              window.location.href = "/editimage/"+hiddenText;
+              // Hier können Sie weitere Aktionen durchführen, z.B. den Benutzer benachrichtigen
+            } else {
+              console.log('Datei existiert nicht');
+            }
+          })
+          .catch(error => console.error('Fehler:', error));
+      }
+      
+      setInterval(() => {
+        if(boolean){
+        const filename = hiddenText; // Ersetzen Sie dies durch den tatsächlichen Dateinamen, den Sie überprüfen möchten
+        checkFileExistence(filename);}
+      }, 10000); // 10000 Millisekunden = 10 Sekunden
+    });
+  </script>
+</body>
+</html>

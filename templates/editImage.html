@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{{ url_for('static', filename='CSS/editImage.css') }}" rel="stylesheet" media="screen">
+  <title>Document</title>
+</head>
+<body>
+
+  <img class="menü"  id="menü"src="/static/list.svg"/>
+  <div class="sidebar">
+    
+      <a href="/"><img class="house_logo" src="/static/house.svg"/></a>
+    
+  
+      <a href="/"><img class="add_logo" src="/static/plus-circle-dotted.svg"/></a>
+  
+  
+      <a href="/"><img class="delete_logo" src="/static/x-circle.svg"/></a>
+  
+  
+      <a href="/"><img class="info_logo" src="/static/info-circle.svg"/></a>
+  
+  </div>
+
+  <div class="ImageContainer">
+
+      <img class="image" src="{{ image_data_url }}"/>
+
+  </div>
+
+  <div class="InfoContainer">
+    <form action="/save"   method="post" enctype="multipart/form-data">
+      <label for="id">ID:</label>
+      <input type="text" id="id" name="id" value="{{ id }}" required>
+      
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      <label for="Düngen">Düngen</label>
+      <div class="checkbox-group">
+      <input type="checkbox" id="Düngen" name="Düngen" value="ja" {% if dictionary['dungen'] %} checked {% endif %}>
+      </div>
+
+      
+      <label>Gießen:</label>
+      <div class="checkbox-group">
+          <input type="checkbox" id="rubrik_wenig" name="rubrik" value="wenig gießen" {% if dictionary['wenig giesen'] %} checked {% endif %}>
+          <label for="rubrik_wenig">Wenig</label>
+      </div>
+      <div class="checkbox-group">
+          <input type="checkbox" id="rubrik_mittel" name="rubrik" value="mittel gießen"  {% if dictionary['mittel giesen'] %} checked {% endif %}>
+          <label for="rubrik_mittel">Mittel</label>
+      </div>
+      <div class="checkbox-group">
+          <input type="checkbox" id="rubrik_viel" name="rubrik" value="viel gießen"  {% if dictionary['viel giesen'] %} checked {% endif %}>
+          <label for="rubrik_viel">Viel</label>
+      </div>
+      
+      <label>Standort:</label>
+      <div class="checkbox-group">
+          <input type="checkbox" id="standort_schattig" name="standort" value="schattig"  {% if dictionary['schattig'] %} checked {% endif %}>
+          <label for="standort_schattig">Schattig</label>
+      </div>
+      <div class="checkbox-group">
+          <input type="checkbox" id="standort_halbschattig" name="standort" value="halb sonnig schattig"  {% if dictionary['halb sonnig schattig'] %} checked {% endif %}>
+          <label for="standort_halbschattig">Halb schattig</label>
+      </div>
+      <div class="checkbox-group">
+          <input type="checkbox" id="standort_sonnig" name="standort" value="sonnig"  {% if dictionary['sonnig'] %} checked {% endif %}>
+          <label for="standort_sonnig">Hell</label>
+      </div>
+      <div class="checkbox-group">
+        <input type="checkbox" id="standort_kein_Sonne" name="standort" value="keine Sonne"  {% if dictionary['keine Sonne'] %} checked {% endif %}>
+        <label for="standort_kein_Sonne">Keine direkte Sonne</label>
+    </div>
+
+      <label for="text">Anmerkung</label>
+      <textarea id="text" name="text" >{{ text }}</textarea> 
+      
+      <input type="submit" value="Absenden">
+  </form>
+
+
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggleSidebarBtn = document.getElementById('menü');
+      const sidebar = document.querySelector('.sidebar');
+  
+      toggleSidebarBtn.addEventListener('click', function () {
+        sidebar.classList.toggle('hidden');
+      });
+    });
+  </script>
+
+
+  
+</body>
+</html>

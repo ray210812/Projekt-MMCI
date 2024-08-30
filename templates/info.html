@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{{ url_for('static', filename='CSS/editImage.css') }}" rel="stylesheet" media="screen">
+  <title>Document</title>
+</head>
+<body>
+
+  <img class="menü"  id="menü"src="/static/list.svg"/>
+  <div class="sidebar">
+    
+      <a href="/"><img class="house_logo" src="/static/house.svg"/></a>
+    
+  
+      <a href="/"><img class="add_logo" src="/static/plus-circle-dotted.svg"/></a>
+  
+  
+      <a href="/"><img class="delete_logo" src="/static/x-circle.svg"/></a>
+  
+  
+      <a href="/"><img class="info_logo" src="/static/info-circle.svg"/></a>
+  
+  </div>
+
+  <div class="Auflistung">
+    
+    {% for row in rows %}
+    <a href="/info/{{row['ID']}}">
+    <div class="row">
+      <div class="image-container">
+        <img src="/static/Auswertungen/{{row['UUID']}}.jpg" alt="Bild von {{row['Bezeichnung']}}">
+      </div>
+    
+      <div class="info-container">
+        <h4>ID: {{row['ID']}}  </h4>
+        <h4>UUID: {{row['UUID']}}</h4>
+        <h4>Bezeichnung: {{row['Bezeichnung']}}  Datum: {{row['Angelegt_am']}}</h4>
+        <h4>  Angelegt am: {{row['Angelegt_am']}}</h4>
+      </div>
+    </div>
+  </a>
+    {% endfor %}
+    
+
+  </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggleSidebarBtn = document.getElementById('menü');
+      const sidebar = document.querySelector('.sidebar');
+  
+      toggleSidebarBtn.addEventListener('click', function () {
+        sidebar.classList.toggle('hidden');
+      });
+    });
+  </script>
+</body>
+</html>

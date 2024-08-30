@@ -1,0 +1,124 @@
+body {
+  background-image: url("../images/pexels-dana-tentis-118658-370799.jpg");
+  height: 100%;
+  width: 100%;
+  float: left;
+  background-repeat: no-repeat; /* Verhindert die Wiederholung des Bildes */
+   background-position: center; /* Zentriert das Bild */
+   background-size: cover;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+
+.sidebar.hidden {
+  display: none;
+}
+
+.sidebar{
+  height: 100vh;
+  width: 5vh;
+  background-color: rgba(191, 193, 195, 0.473);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  float: left;
+  }
+
+.house_logo{
+  height: 3vh;
+  width: 3vh;
+  position: relative;
+  top: 1cm;
+  left: 0.3cm;
+  font: bold;
+  margin-bottom: 0.3cm;
+}
+
+.add_logo{
+  height: 3vh;
+  width: 3vh;
+  position: relative;
+  top: 1cm;
+  left: 0.3cm;
+  font: bold;
+  margin-bottom: 0.3cm;
+}
+
+.info_logo{
+  height: 3vh;
+  width: 3vh;
+  position: relative;
+  top: 1cm;
+  left: 0.3cm;
+  font: bold;
+  margin-bottom: 0.3cm;
+}
+
+.delete_logo{
+  height: 3vh;
+  width: 3vh;
+  position: relative;
+  top: 1cm;
+  left: 0.3cm;
+  font: bold;
+  margin-bottom: 0.3cm;
+}
+
+.menü{
+  height: 3vh;
+  width: 3vh;
+  position: absolute;
+  top: 0.3cm;
+  left: 0.3cm;
+  
+}
+
+.addIcon ,.infoIcon{
+  width: 60%;
+  height: auto;
+  ;
+}
+
+.deleteIcon {
+ width: 60%;
+ height: auto;
+ color: #ac7a1e;
+}
+
+.Benachrichtigung{
+  background-color: rgba(191, 193, 195, 0.473);
+  width: 80%;
+  height: 80%;
+  overflow: auto;
+  margin-top: 5%;
+  margin-left: 5%;
+}
+
+.message {
+  position: relative; /* Position für den Pfeil */
+  margin: 0 auto;
+  padding: 1rem;
+  border-radius: 20px;
+  background: rgba(191, 193, 195, 0.85);
+  width: 90%;
+  height: auto;
+  color: white; /* Textfarbe */
+  margin-top: 2%;
+}
+
+/* Pfeil der Sprechblase */
+.message::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; /* Höhe des Pfeils */
+  left: 20px; /* Abstand vom linken Rand der Box */
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent; /* Pfeilspitze */
+  border-right: 20px solid transparent; /* Pfeilspitze */
+  border-top: 20px solid #c2cacfb7; /* Pfeilkörper, gleiche Farbe wie die Nachricht */
+}
+

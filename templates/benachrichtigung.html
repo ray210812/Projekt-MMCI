@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="{{ url_for('static', filename='CSS/benachrichtigung.css') }}" rel="stylesheet" media="screen">
+</head>
+<body>
+
+
+
+  <img class="menü"  id="menü"src="/static/list.svg"/>
+  <div class="sidebar">
+    
+      <a href="/"><img class="house_logo" src="/static/house.svg"/></a>
+    
+  
+      <a href="/"><img class="add_logo" src="/static/plus-circle-dotted.svg"/></a>
+  
+  
+      <a href="/"><img class="delete_logo" src="/static/x-circle.svg"/></a>
+  
+  
+      <a href="/"><img class="info_logo" src="/static/info-circle.svg"/></a>
+
+  </div>
+
+  <div class="Benachrichtigung">
+
+    {% for row in rows %}
+
+    <div class="message">
+      <h4>Die Pflanze : {{row['Bezeichnung']}} benötigt Wasser . <br> Erstellt am {{row['Datum']}}</h4>
+      <form action="/benachrichtigung/{{row['ID']}}" method="post">
+        <input type="submit" value="erledigt">
+      </form>
+    </div>
+ 
+    {% endfor %}
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const toggleSidebarBtn = document.getElementById('menü');
+          const sidebar = document.querySelector('.sidebar');
+      
+          toggleSidebarBtn.addEventListener('click', function () {
+            sidebar.classList.toggle('hidden');
+          });
+        });
+      </script>
+</body>
+</html>

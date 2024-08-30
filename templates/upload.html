@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{{ url_for('static', filename='CSS/upload.css') }}" rel="stylesheet" media="screen">
+  <title>Document</title>
+</head>
+<body>
+  <img class="menü"  id="menü"src="/static/list.svg"/>
+  <div class="sidebar">
+    
+      <a href="/"><img class="house_logo" src="/static/house.svg"/></a>
+    
+  
+      <a href="/"><img class="add_logo" src="/static/plus-circle-dotted.svg"/></a>
+  
+  
+      <a href="/"><img class="delete_logo" src="/static/x-circle.svg"/></a>
+  
+  
+      <a href="/"><img class="info_logo" src="/static/info-circle.svg"/></a>
+  
+  </div>
+
+  <div class="Container">
+    <div class="folder">
+      <img class="folderIcon" src="/static/folder2-open.svg"/>
+    </div>
+
+    <h4>Datei hochladen</h4>
+
+    <form action="/uploadcompleted"   method="post" enctype="multipart/form-data">
+        <label for="Id">ID </label> 
+        <input type="text" name="Id" value="{{ variable}}">
+        <input name="datei" type="file" size="50"accept="image/*">   
+        <input type="submit" value="Bestätigen">
+    </form>
+
+
+  </div>
+
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggleSidebarBtn = document.getElementById('menü');
+      const sidebar = document.querySelector('.sidebar');
+  
+      toggleSidebarBtn.addEventListener('click', function () {
+        sidebar.classList.toggle('hidden');
+      });
+    });
+  </script>
+</body>
+</html>
