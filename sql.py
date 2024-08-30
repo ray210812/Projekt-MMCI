@@ -1,9 +1,10 @@
 import mysql.connector 
+import json
 from datetime import datetime
 def connect():
   Servername = 'localhost' # Rechnername (localhost ist dein eigener Rechner)
   Benutzer   = 'root'
-  Passwort   = 'masche210'
+  Passwort   = 'masche210' #muss angepasst werden
   Datenbank  = 'mydb'
 
   # Verbindung mit der Datenbank
@@ -15,7 +16,7 @@ def connect():
   return con
 
 
-
+#Pflanze in DB anlegen
 def insert(id,düngen,name,gießen,standort,text):
   now = datetime.now()
 
@@ -95,11 +96,9 @@ VALUES (%s, %s, (SELECT `ID` FROM Pflanzen WHERE Bezeichnung=%s AND UUID=%s), %s
   values = (str(formatted_now), str(name),str(id))
   cursor.execute(SQLBefehl,values)
   con.commit()
-
-
   
   cursor.close()
-  # Abmelden
+
   con.disconnect()
 
 
@@ -110,7 +109,7 @@ def getallplants():
   cursor.execute(querry)
   results = cursor.fetchall()
   cursor.close()
-  # Abmelden
+
   con.disconnect()
   return results
 
@@ -150,7 +149,7 @@ where a.id=%s
   print (result1[0]['ID'])
   #print (result[0]ID)
   cursor.close()
-  # Abmelden
+
   con.disconnect()
   
   return result,result1,result2,result3
@@ -163,7 +162,7 @@ def getallplants():
   cursor.execute(querry)
   results = cursor.fetchall()
   cursor.close()
-  # Abmelden
+
   con.disconnect()
   return results
 
@@ -174,7 +173,7 @@ def getBenachrichtigung():
   cursor.execute(querry)
   results = cursor.fetchall()
   cursor.close()
-  # Abmelden
+
   con.disconnect()
   return results
 
@@ -196,10 +195,252 @@ def deleteBenachrichtigung(ID):
   cursor.execute(querry,values)
   con.commit()
   cursor.close()
-  # Abmelden
+
   con.disconnect()
   return 
 
+def getInformationasJSON():
+  con = connect()
+  querry='''Select Pflanzen.ID, Bezeichnung  from Pflanzen join Benachrichtigung on Pflanzen.ID= Benachrichtigung.Pflanzen_ID; '''
+  querry2='''select Label.Bezeichnung as Bezeichnung_Label, Pflanzen_ID, Pflanzen.Bezeichnung from Label_has_Pflanzen join Label join Pflanzen on Pflanzen.ID=Pflanzen_ID where Label_ID=Label.ID ;'''
+  
+  cursor = con.cursor(dictionary=True)  
+  cursor.execute(querry)
+  results = cursor.fetchall()
+
+  cursor = con.cursor(dictionary=True)  
+  cursor.execute(querry2)
+  results1 = cursor.fetchall()
+
+  json_results = {
+    "Benachrichtigung": results,
+    "Labels": results1
+  }
 
 
-#deleteBenachrichtigung(12)
+  json_output = json.dumps(json_results, ensure_ascii=False, indent=4)
+
+
+  print(json_output)
+
+  return json_output
+
+
+
+
+
+#erzeugt eine Json mit allgemeinen Informationen von Pflanze + Benachrichtigungen
+getInformationasJSON()
+'''
+def load_json_data():
+    json_data = {
+        "Benachrichtigung": [
+            {
+                "Pflanzen_ID": 2,
+                "Bezeichnung": "Test2",
+                "Datum": "22.08.2024"
+            }
+        ],
+        "Labels": [
+            {
+                "Bezeichnung_Label": "halb sonnig schattig",
+                "Pflanzen_ID": 2,
+                "Bezeichnung": "Test2"
+            },
+            {
+                "Bezeichnung_Label": "halb sonnig schattig",
+                "Pflanzen_ID": 3,
+                "Bezeichnung": "Test3"
+            },
+            {
+                "Bezeichnung_Label": "halb sonnig schattig",
+                "Pflanzen_ID": 5,
+                "Bezeichnung": "Test 5"
+            },
+            {
+                "Bezeichnung_Label": "halb sonnig schattig",
+                "Pflanzen_ID": 6,
+                "Bezeichnung": "Test 6"
+            },
+            {
+                "Bezeichnung_Label": "halb sonnig schattig",
+                "Pflanzen_ID": 8,
+                "Bezeichnung": "Test8"
+            },
+            {
+                "Bezeichnung_Label": "halb sonnig schattig",
+                "Pflanzen_ID": 11,
+                "Bezeichnung": "Test11"
+            },
+            {
+                "Bezeichnung_Label": "halb sonnig schattig",
+                "Pflanzen_ID": 12,
+                "Bezeichnung": "Test 12"
+            },
+            {
+                "Bezeichnung_Label": "halb sonnig schattig",
+                "Pflanzen_ID": 14,
+                "Bezeichnung": "Test 13"
+            },
+            {
+                "Bezeichnung_Label": "keine Sonne",
+                "Pflanzen_ID": 1,
+                "Bezeichnung": "Test"
+            },
+            {
+                "Bezeichnung_Label": "keine Sonne",
+                "Pflanzen_ID": 3,
+                "Bezeichnung": "Test3"
+            },
+            {
+                "Bezeichnung_Label": "keine Sonne",
+                "Pflanzen_ID": 7,
+                "Bezeichnung": "Test 7"
+            },
+            {
+                "Bezeichnung_Label": "keine Sonne",
+                "Pflanzen_ID": 8,
+                "Bezeichnung": "Test8"
+            },
+            {
+                "Bezeichnung_Label": "keine Sonne",
+                "Pflanzen_ID": 11,
+                "Bezeichnung": "Test11"
+            },
+            {
+                "Bezeichnung_Label": "mittel gießen",
+                "Pflanzen_ID": 1,
+                "Bezeichnung": "Test"
+            },
+            {
+                "Bezeichnung_Label": "mittel gießen",
+                "Pflanzen_ID": 2,
+                "Bezeichnung": "Test2"
+            },
+            {
+                "Bezeichnung_Label": "mittel gießen",
+                "Pflanzen_ID": 4,
+                "Bezeichnung": "Test4"
+            },
+            {
+                "Bezeichnung_Label": "mittel gießen",
+                "Pflanzen_ID": 6,
+                "Bezeichnung": "Test 6"
+            },
+            {
+                "Bezeichnung_Label": "mittel gießen",
+                "Pflanzen_ID": 8,
+                "Bezeichnung": "Test8"
+            },
+            {
+                "Bezeichnung_Label": "mittel gießen",
+                "Pflanzen_ID": 11,
+                "Bezeichnung": "Test11"
+            },
+            {
+                "Bezeichnung_Label": "schattig",
+                "Pflanzen_ID": 11,
+                "Bezeichnung": "Test11"
+            },
+            {
+                "Bezeichnung_Label": "sonnig",
+                "Pflanzen_ID": 1,
+                "Bezeichnung": "Test"
+            },
+            {
+                "Bezeichnung_Label": "sonnig",
+                "Pflanzen_ID": 4,
+                "Bezeichnung": "Test4"
+            },
+            {
+                "Bezeichnung_Label": "sonnig",
+                "Pflanzen_ID": 9,
+                "Bezeichnung": "Test 9"
+            },
+            {
+                "Bezeichnung_Label": "sonnig",
+                "Pflanzen_ID": 10,
+                "Bezeichnung": "Test 10"
+            },
+            {
+                "Bezeichnung_Label": "viel gießen",
+                "Pflanzen_ID": 3,
+                "Bezeichnung": "Test3"
+            },
+            {
+                "Bezeichnung_Label": "viel gießen",
+                "Pflanzen_ID": 12,
+                "Bezeichnung": "Test 12"
+            },
+            {
+                "Bezeichnung_Label": "viel gießen",
+                "Pflanzen_ID": 14,
+                "Bezeichnung": "Test 13"
+            },
+            {
+                "Bezeichnung_Label": "wenig gießen",
+                "Pflanzen_ID": 5,
+                "Bezeichnung": "Test 5"
+            },
+            {
+                "Bezeichnung_Label": "wenig gießen",
+                "Pflanzen_ID": 7,
+                "Bezeichnung": "Test 7"
+            },
+            {
+                "Bezeichnung_Label": "wenig gießen",
+                "Pflanzen_ID": 10,
+                "Bezeichnung": "Test 10"
+            },
+            {
+                "Bezeichnung_Label": "dungen",
+                "Pflanzen_ID": 1,
+                "Bezeichnung": "Test"
+            },
+            {
+                "Bezeichnung_Label": "dungen",
+                "Pflanzen_ID": 3,
+                "Bezeichnung": "Test3"
+            },
+            {
+                "Bezeichnung_Label": "dungen",
+                "Pflanzen_ID": 5,
+                "Bezeichnung": "Test 5"
+            },
+            {
+                "Bezeichnung_Label": "dungen",
+                "Pflanzen_ID": 8,
+                "Bezeichnung": "Test8"
+            },
+            {
+                "Bezeichnung_Label": "dungen",
+                "Pflanzen_ID": 9,
+                "Bezeichnung": "Test 9"
+            },
+            {
+                "Bezeichnung_Label": "dungen",
+                "Pflanzen_ID": 11,
+                "Bezeichnung": "Test11"
+            },
+            {
+                "Bezeichnung_Label": "dungen",
+                "Pflanzen_ID": 12,
+                "Bezeichnung": "Test 12"
+            },
+            {
+                "Bezeichnung_Label": "dungen",
+                "Pflanzen_ID": 14,
+                "Bezeichnung": "Test 13"
+            }
+        ]
+    }
+    return json.loads(json_data)
+
+data = load_json_data()
+answer=""
+for line in data['Benachrichtigung']:
+  answer += "Benachrichtigung vom " + str(line["Datum"]) +" Die Pflanze " +str(line['Bezeichnung']) +" benötigt Wasser"
+if not answer :
+            answer = "keine Benachrichtigungen!"
+print(answer)
+'''

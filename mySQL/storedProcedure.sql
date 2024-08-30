@@ -14,7 +14,7 @@ DECLARE currentDate DATE;
 
    INSERT INTO Benachrichtigung (Datum,Pflanzen_ID, Info)
     SELECT distinct currentDate as Datum,  Gießen.Pflanzen_ID, "Info" as Info
-    FROM Gießen, Pflanzen p
+    FROM (SELECT   MAX(Datum) as Datum, Pflanzen_ID  FROM mydb.gießen group by Pflanzen_ID order by Datum desc )as Gießen, Pflanzen p
     JOIN Label_has_Pflanzen lhp ON p.ID = lhp.Pflanzen_ID
     JOIN Label l ON l.ID = lhp.Label_ID
     WHERE l.Bezeichnung = 'wenig gießen'
@@ -28,7 +28,7 @@ DECLARE currentDate DATE;
     -- Überprüfung für mittel gießen (7 Tage)
    INSERT INTO Benachrichtigung (Datum,Pflanzen_ID, Info)
     SELECT distinct currentDate as Datum,  Gießen.Pflanzen_ID, "Info" as Info
-    FROM Gießen, Pflanzen p
+    FROM (SELECT   MAX(Datum) as Datum, Pflanzen_ID  FROM mydb.gießen group by Pflanzen_ID order by Datum desc )as Gießen, Pflanzen p
     JOIN Label_has_Pflanzen lhp ON p.ID = lhp.Pflanzen_ID
     JOIN Label l ON l.ID = lhp.Label_ID
     WHERE l.Bezeichnung = 'mittel gießen'
@@ -43,7 +43,7 @@ DECLARE currentDate DATE;
     -- Überprüfung für viel gießen (3 Tage)
    INSERT INTO Benachrichtigung (Datum,Pflanzen_ID, Info)
     SELECT distinct currentDate as Datum,  Gießen.Pflanzen_ID, "Info" as Info
-    FROM Gießen, Pflanzen p
+    FROM  (SELECT   MAX(Datum) as Datum, Pflanzen_ID  FROM mydb.gießen group by Pflanzen_ID order by Datum desc )as Gießen, Pflanzen p
     JOIN Label_has_Pflanzen lhp ON p.ID = lhp.Pflanzen_ID
     JOIN Label l ON l.ID = lhp.Label_ID
     WHERE l.Bezeichnung = 'viel gießen'
@@ -57,6 +57,8 @@ END$$
 
 DELIMITER ;
 ;
+
+
 
 
 

@@ -2,11 +2,9 @@ from flask import Flask , render_template ,request, redirect, url_for, jsonify
 import segno
 from io import BytesIO
 import base64
-from PIL import Image
 import cv2
 import uuid
 import os
-from werkzeug.utils import secure_filename
 import Yolo
 import Tesseract
 import re
@@ -14,7 +12,8 @@ import sql
 
 
 app = Flask(__name__)
-
+#get: Startseite aufrufen
+#post: Bild speichern (localer Upload) und weiterleitung
 @app.route("/" ,methods=["GET", "POST"])
 def index():
     if request.method == "POST":
@@ -32,8 +31,10 @@ def index():
 
     return  render_template('index.html')
 
+
+#upload von extern speichern, ohne weiterleitung
 @app.route("/uploadcompleted" ,methods=["GET", "POST"])
-def hello_world1():
+def uploadMobile():
     if request.method == "POST":
         if 'datei' in request.files :
             file = request.files['datei']
@@ -47,37 +48,33 @@ def hello_world1():
 
     return render_template('index.html')
 
-
+#Upload Seite extern
 @app.route("/upload/<variable>")
 def upload(variable):
     return render_template('upload.html', variable=variable)
 
-
+#Seite um Pflanzen hinzuzufügen Localer Upload  + QR Code für externen Upload
 @app.route("/add")
 def add():
     myuuid= uuid.uuid4()
 
     qrcode = segno.make_qr("192.168.0.28:5000/upload/"+str(myuuid))
-
-    # Speichern Sie das Bild in einem BytesIO-Puffer
     buffer = BytesIO()
     qrcode.save(buffer, kind='png',scale=10)
-    buffer.seek(0)
-
-    
+    buffer.seek(0) # für pointer
     img_str = base64.b64encode(buffer.getvalue()).decode("utf-8")
     img_data_url = f"data:image/png;base64,{img_str}"
 
     
     return render_template('add.html', image_data_url=img_data_url, UUID=str(myuuid))
 
-
+#Überprüft ob Bild mit übergebenen Namen existiert
 @app.route("/check_file/<filename>")
 def check_file(filename):
     file_path = os.path.join('static/Upload', str(filename)+".jpg")
     file_exists = os.path.exists(file_path)
     return jsonify(exists=file_exists)
-
+#Bild wird analysiert +Seite zum Auswahl der Eigenschaften anzeigen
 @app.route("/editimage/<id>")
 def edit(id):
     file_path = os.path.join('static/Upload', str(id)+".jpg")
@@ -98,6 +95,7 @@ def edit(id):
     img_data_url = f"data:image/png;base64,{img_str}"
     return render_template('editImage.html', image_data_url=img_data_url, dictionary=result,id=id, text=str(text))
 
+# Nach Auswahl der Eigenschaften Daten in DB speichern
 @app.route("/save",methods=["GET", "POST"])
 def save():
     if request.method == "POST":
@@ -113,6 +111,8 @@ def save():
 
     return "error"
 
+
+#Info Seite
 @app.route("/info")
 def info():
     result=sql.getallplants()
@@ -120,17 +120,20 @@ def info():
     return render_template('info.html', rows=result)
 
 
+#Benachrichtigung Seite
 @app.route("/benachrichtigung",methods=["GET", "POST"])
 def benachrichtigung():
     result=sql.getBenachrichtigung()
       
     return render_template('benachrichtigung.html', rows=result)
-
+#Benachrichtigung löschen
 @app.route("/benachrichtigung/<id>",methods=["GET", "POST"])
 def completed(id):
     sql.deleteBenachrichtigung(id)
     return benachrichtigung()
 
+
+#Informationen zu einzelner Pflanze anzeigen
 @app.route("/info/<variable>" )
 def info2(variable):
     a,b,c,d =sql.getInformation(variable)
@@ -148,12 +151,10 @@ def info2(variable):
 
     for label in b:
         dictonary[label["Bezeichnung"]]="checked"
-
-
     return render_template('info2.html', a=a,dictionary=dictonary,c=c,d=d)
 
 
-
+# Wenn Symbole erkannt wurden, wird ein Dictionary mit den Eigenschaften als "checked" zurück gegeben . Ansonsten wird eine Text Analyse versucht ( Sucht nach Signalwörtern -> Falls gefunden innerhalb eines begrenzten Bereichs nach Maßeinheit suchen) "
 def analyse(text,labels):
     dictonary ={
         'Zimmerpflanze':"", 
@@ -179,23 +180,16 @@ def analyse(text,labels):
         "feuchten",
         "sprühen",
         "tröpfchenbewässerung",
-        "bewässerungssystem",
         "tropfbewässerung",
         "sprinkler",
-        "wassertank",
-        "zuleitung",
-        "sprühsystem",
         "nassen",
         "hydratisieren",
         "wässern",
-        "wasserzufuhr",
-        "nährlösung",
         "feucht halten",
-        "beregnung",
-        "düngen"
+
     ]
     
-    # Liste für Wörter, die "wenig" beschreiben
+
     wenig_worte = [
         "gering",
         "minimal",
@@ -206,14 +200,13 @@ def analyse(text,labels):
         "wenig",
         "klein",
         "marginal",
-        "mangelhaft",
         "wenig",
         "gelegentlich",
         "nicht",
         "sparsam"
     ]
 
-    # Liste für Wörter, die "mittel" beschreiben
+
     mittel_worte = [
         "moderat",
         "durchschnittlich",
@@ -230,7 +223,6 @@ def analyse(text,labels):
         "gleichmäßig"
     ]
 
-    # Liste für Wörter, die "viel" beschreiben
     viel_worte = [
         "reichlich",
         "umfangreich",
@@ -249,7 +241,7 @@ def analyse(text,labels):
     if(match):
         quantity_pattern= '|'.join(wenig_worte)
         pattern = rf'({quantity_pattern}).{{0,50}}({signal_pattern})|({signal_pattern}).{{0,50}}({quantity_pattern})'
-        pattern =  re.compile(pattern, re.IGNORECASE | re.DOTALL)
+        pattern =  re.compile(pattern, re.IGNORECASE | re.DOTALL) # Zeilenumbruch ignorieren
         match=re.findall(pattern,text)
         if match:
             dictonary['wenig giesen']="checked"
@@ -312,18 +304,6 @@ def analyse(text,labels):
             dictonary["keine Sonne"]="checked"
         
     return dictonary
-
-
-
-    
-
-
-
-
-
-
-    
-
 
 if __name__ == "__main__":
     
