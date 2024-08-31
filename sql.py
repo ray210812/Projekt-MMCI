@@ -4,7 +4,7 @@ from datetime import datetime
 def connect():
   Servername = 'localhost' # Rechnername (localhost ist dein eigener Rechner)
   Benutzer   = 'root'
-  Passwort   = 'masche210' #muss angepasst werden
+  Passwort   = '' #muss angepasst werden
   Datenbank  = 'mydb'
 
   # Verbindung mit der Datenbank
@@ -219,6 +219,9 @@ def getInformationasJSON():
 
 
   json_output = json.dumps(json_results, ensure_ascii=False, indent=4)
+
+  with open("test.json", 'w', encoding='utf-8') as file:
+    file.write(json_output)
 
 
   print(json_output)
