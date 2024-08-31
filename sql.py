@@ -2,7 +2,7 @@ import mysql.connector
 import json
 from datetime import datetime
 def connect():
-  Servername = 'localhost' # Rechnername (localhost ist dein eigener Rechner)
+  Servername = 'localhost' 
   Benutzer   = 'root'
   Passwort   = '' #muss angepasst werden
   Datenbank  = 'mydb'
