@@ -201,7 +201,7 @@ def deleteBenachrichtigung(ID):
 
 def getInformationasJSON():
   con = connect()
-  querry='''Select Pflanzen.ID, Bezeichnung  from Pflanzen join Benachrichtigung on Pflanzen.ID= Benachrichtigung.Pflanzen_ID; '''
+  querry='''Select Pflanzen.ID, Bezeichnung,DATE_FORMAT(Benachrichtigung.Datum, '%Y-%m-%d') AS Datum  from Pflanzen join Benachrichtigung on Pflanzen.ID= Benachrichtigung.Pflanzen_ID; '''
   querry2='''select Label.Bezeichnung as Bezeichnung_Label, Pflanzen_ID, Pflanzen.Bezeichnung from Label_has_Pflanzen join Label join Pflanzen on Pflanzen.ID=Pflanzen_ID where Label_ID=Label.ID ;'''
   
   cursor = con.cursor(dictionary=True)  
@@ -234,209 +234,276 @@ def getInformationasJSON():
 
 #erzeugt eine Json mit allgemeinen Informationen von Pflanze + Benachrichtigungen
 getInformationasJSON()
-'''
+"""
 def load_json_data():
     json_data = {
-        "Benachrichtigung": [
-            {
-                "Pflanzen_ID": 2,
-                "Bezeichnung": "Test2",
-                "Datum": "22.08.2024"
-            }
-        ],
-        "Labels": [
-            {
-                "Bezeichnung_Label": "halb sonnig schattig",
-                "Pflanzen_ID": 2,
-                "Bezeichnung": "Test2"
-            },
-            {
-                "Bezeichnung_Label": "halb sonnig schattig",
-                "Pflanzen_ID": 3,
-                "Bezeichnung": "Test3"
-            },
-            {
-                "Bezeichnung_Label": "halb sonnig schattig",
-                "Pflanzen_ID": 5,
-                "Bezeichnung": "Test 5"
-            },
-            {
-                "Bezeichnung_Label": "halb sonnig schattig",
-                "Pflanzen_ID": 6,
-                "Bezeichnung": "Test 6"
-            },
-            {
-                "Bezeichnung_Label": "halb sonnig schattig",
-                "Pflanzen_ID": 8,
-                "Bezeichnung": "Test8"
-            },
-            {
-                "Bezeichnung_Label": "halb sonnig schattig",
-                "Pflanzen_ID": 11,
-                "Bezeichnung": "Test11"
-            },
-            {
-                "Bezeichnung_Label": "halb sonnig schattig",
-                "Pflanzen_ID": 12,
-                "Bezeichnung": "Test 12"
-            },
-            {
-                "Bezeichnung_Label": "halb sonnig schattig",
-                "Pflanzen_ID": 14,
-                "Bezeichnung": "Test 13"
-            },
-            {
-                "Bezeichnung_Label": "keine Sonne",
-                "Pflanzen_ID": 1,
-                "Bezeichnung": "Test"
-            },
-            {
-                "Bezeichnung_Label": "keine Sonne",
-                "Pflanzen_ID": 3,
-                "Bezeichnung": "Test3"
-            },
-            {
-                "Bezeichnung_Label": "keine Sonne",
-                "Pflanzen_ID": 7,
-                "Bezeichnung": "Test 7"
-            },
-            {
-                "Bezeichnung_Label": "keine Sonne",
-                "Pflanzen_ID": 8,
-                "Bezeichnung": "Test8"
-            },
-            {
-                "Bezeichnung_Label": "keine Sonne",
-                "Pflanzen_ID": 11,
-                "Bezeichnung": "Test11"
-            },
-            {
-                "Bezeichnung_Label": "mittel gießen",
-                "Pflanzen_ID": 1,
-                "Bezeichnung": "Test"
-            },
-            {
-                "Bezeichnung_Label": "mittel gießen",
-                "Pflanzen_ID": 2,
-                "Bezeichnung": "Test2"
-            },
-            {
-                "Bezeichnung_Label": "mittel gießen",
-                "Pflanzen_ID": 4,
-                "Bezeichnung": "Test4"
-            },
-            {
-                "Bezeichnung_Label": "mittel gießen",
-                "Pflanzen_ID": 6,
-                "Bezeichnung": "Test 6"
-            },
-            {
-                "Bezeichnung_Label": "mittel gießen",
-                "Pflanzen_ID": 8,
-                "Bezeichnung": "Test8"
-            },
-            {
-                "Bezeichnung_Label": "mittel gießen",
-                "Pflanzen_ID": 11,
-                "Bezeichnung": "Test11"
-            },
-            {
-                "Bezeichnung_Label": "schattig",
-                "Pflanzen_ID": 11,
-                "Bezeichnung": "Test11"
-            },
-            {
-                "Bezeichnung_Label": "sonnig",
-                "Pflanzen_ID": 1,
-                "Bezeichnung": "Test"
-            },
-            {
-                "Bezeichnung_Label": "sonnig",
-                "Pflanzen_ID": 4,
-                "Bezeichnung": "Test4"
-            },
-            {
-                "Bezeichnung_Label": "sonnig",
-                "Pflanzen_ID": 9,
-                "Bezeichnung": "Test 9"
-            },
-            {
-                "Bezeichnung_Label": "sonnig",
-                "Pflanzen_ID": 10,
-                "Bezeichnung": "Test 10"
-            },
-            {
-                "Bezeichnung_Label": "viel gießen",
-                "Pflanzen_ID": 3,
-                "Bezeichnung": "Test3"
-            },
-            {
-                "Bezeichnung_Label": "viel gießen",
-                "Pflanzen_ID": 12,
-                "Bezeichnung": "Test 12"
-            },
-            {
-                "Bezeichnung_Label": "viel gießen",
-                "Pflanzen_ID": 14,
-                "Bezeichnung": "Test 13"
-            },
-            {
-                "Bezeichnung_Label": "wenig gießen",
-                "Pflanzen_ID": 5,
-                "Bezeichnung": "Test 5"
-            },
-            {
-                "Bezeichnung_Label": "wenig gießen",
-                "Pflanzen_ID": 7,
-                "Bezeichnung": "Test 7"
-            },
-            {
-                "Bezeichnung_Label": "wenig gießen",
-                "Pflanzen_ID": 10,
-                "Bezeichnung": "Test 10"
-            },
-            {
-                "Bezeichnung_Label": "dungen",
-                "Pflanzen_ID": 1,
-                "Bezeichnung": "Test"
-            },
-            {
-                "Bezeichnung_Label": "dungen",
-                "Pflanzen_ID": 3,
-                "Bezeichnung": "Test3"
-            },
-            {
-                "Bezeichnung_Label": "dungen",
-                "Pflanzen_ID": 5,
-                "Bezeichnung": "Test 5"
-            },
-            {
-                "Bezeichnung_Label": "dungen",
-                "Pflanzen_ID": 8,
-                "Bezeichnung": "Test8"
-            },
-            {
-                "Bezeichnung_Label": "dungen",
-                "Pflanzen_ID": 9,
-                "Bezeichnung": "Test 9"
-            },
-            {
-                "Bezeichnung_Label": "dungen",
-                "Pflanzen_ID": 11,
-                "Bezeichnung": "Test11"
-            },
-            {
-                "Bezeichnung_Label": "dungen",
-                "Pflanzen_ID": 12,
-                "Bezeichnung": "Test 12"
-            },
-            {
-                "Bezeichnung_Label": "dungen",
-                "Pflanzen_ID": 14,
-                "Bezeichnung": "Test 13"
-            }
-        ]
-    }
+    "Benachrichtigung": [
+        {
+            "ID": 1,
+            "Bezeichnung": "Test"
+        },
+        {
+            "ID": 10,
+            "Bezeichnung": "Test 10 "
+        },
+        {
+            "ID": 12,
+            "Bezeichnung": "Test 12"
+        },
+        {
+            "ID": 14,
+            "Bezeichnung": "Test 13"
+        },
+        {
+            "ID": 5,
+            "Bezeichnung": "Test 5"
+        },
+        {
+            "ID": 6,
+            "Bezeichnung": "Test 6"
+        },
+        {
+            "ID": 7,
+            "Bezeichnung": "Test 7 "
+        },
+        {
+            "ID": 9,
+            "Bezeichnung": "Test 9"
+        },
+        {
+            "ID": 11,
+            "Bezeichnung": "Test11"
+        },
+        {
+            "ID": 2,
+            "Bezeichnung": "Test2"
+        },
+        {
+            "ID": 3,
+            "Bezeichnung": "Test3"
+        },
+        {
+            "ID": 4,
+            "Bezeichnung": "Test4"
+        },
+        {
+            "ID": 8,
+            "Bezeichnung": "Test8"
+        }
+    ],
+    "Labels": [
+        {
+            "Bezeichnung_Label": "halb sonnig schattig",
+            "Pflanzen_ID": 2,
+            "Bezeichnung": "Test2"
+        },
+        {
+            "Bezeichnung_Label": "halb sonnig schattig",
+            "Pflanzen_ID": 3,
+            "Bezeichnung": "Test3"
+        },
+        {
+            "Bezeichnung_Label": "halb sonnig schattig",
+            "Pflanzen_ID": 5,
+            "Bezeichnung": "Test 5"
+        },
+        {
+            "Bezeichnung_Label": "halb sonnig schattig",
+            "Pflanzen_ID": 6,
+            "Bezeichnung": "Test 6"
+        },
+        {
+            "Bezeichnung_Label": "halb sonnig schattig",
+            "Pflanzen_ID": 8,
+            "Bezeichnung": "Test8"
+        },
+        {
+            "Bezeichnung_Label": "halb sonnig schattig",
+            "Pflanzen_ID": 11,
+            "Bezeichnung": "Test11"
+        },
+        {
+            "Bezeichnung_Label": "halb sonnig schattig",
+            "Pflanzen_ID": 12,
+            "Bezeichnung": "Test 12"
+        },
+        {
+            "Bezeichnung_Label": "halb sonnig schattig",
+            "Pflanzen_ID": 14,
+            "Bezeichnung": "Test 13"
+        },
+        {
+            "Bezeichnung_Label": "keine Sonne",
+            "Pflanzen_ID": 1,
+            "Bezeichnung": "Test"
+        },
+        {
+            "Bezeichnung_Label": "keine Sonne",
+            "Pflanzen_ID": 3,
+            "Bezeichnung": "Test3"
+        },
+        {
+            "Bezeichnung_Label": "keine Sonne",
+            "Pflanzen_ID": 7,
+            "Bezeichnung": "Test 7 "
+        },
+        {
+            "Bezeichnung_Label": "keine Sonne",
+            "Pflanzen_ID": 8,
+            "Bezeichnung": "Test8"
+        },
+        {
+            "Bezeichnung_Label": "keine Sonne",
+            "Pflanzen_ID": 11,
+            "Bezeichnung": "Test11"
+        },
+        {
+            "Bezeichnung_Label": "keine Sonne",
+            "Pflanzen_ID": 15,
+            "Bezeichnung": "Test 20"
+        },
+        {
+            "Bezeichnung_Label": "mittel gießen",
+            "Pflanzen_ID": 1,
+            "Bezeichnung": "Test"
+        },
+        {
+            "Bezeichnung_Label": "mittel gießen",
+            "Pflanzen_ID": 2,
+            "Bezeichnung": "Test2"
+        },
+        {
+            "Bezeichnung_Label": "mittel gießen",
+            "Pflanzen_ID": 4,
+            "Bezeichnung": "Test4"
+        },
+        {
+            "Bezeichnung_Label": "mittel gießen",
+            "Pflanzen_ID": 6,
+            "Bezeichnung": "Test 6"
+        },
+        {
+            "Bezeichnung_Label": "mittel gießen",
+            "Pflanzen_ID": 8,
+            "Bezeichnung": "Test8"
+        },
+        {
+            "Bezeichnung_Label": "mittel gießen",
+            "Pflanzen_ID": 11,
+            "Bezeichnung": "Test11"
+        },
+        {
+            "Bezeichnung_Label": "mittel gießen",
+            "Pflanzen_ID": 15,
+            "Bezeichnung": "Test 20"
+        },
+        {
+            "Bezeichnung_Label": "schattig",
+            "Pflanzen_ID": 11,
+            "Bezeichnung": "Test11"
+        },
+        {
+            "Bezeichnung_Label": "sonnig",
+            "Pflanzen_ID": 1,
+            "Bezeichnung": "Test"
+        },
+        {
+            "Bezeichnung_Label": "sonnig",
+            "Pflanzen_ID": 4,
+            "Bezeichnung": "Test4"
+        },
+        {
+            "Bezeichnung_Label": "sonnig",
+            "Pflanzen_ID": 9,
+            "Bezeichnung": "Test 9"
+        },
+        {
+            "Bezeichnung_Label": "sonnig",
+            "Pflanzen_ID": 10,
+            "Bezeichnung": "Test 10 "
+        },
+        {
+            "Bezeichnung_Label": "sonnig",
+            "Pflanzen_ID": 15,
+            "Bezeichnung": "Test 20"
+        },
+        {
+            "Bezeichnung_Label": "viel gießen",
+            "Pflanzen_ID": 3,
+            "Bezeichnung": "Test3"
+        },
+        {
+            "Bezeichnung_Label": "viel gießen",
+            "Pflanzen_ID": 12,
+            "Bezeichnung": "Test 12"
+        },
+        {
+            "Bezeichnung_Label": "viel gießen",
+            "Pflanzen_ID": 14,
+            "Bezeichnung": "Test 13"
+        },
+        {
+            "Bezeichnung_Label": "wenig gießen",
+            "Pflanzen_ID": 5,
+            "Bezeichnung": "Test 5"
+        },
+        {
+            "Bezeichnung_Label": "wenig gießen",
+            "Pflanzen_ID": 7,
+            "Bezeichnung": "Test 7 "
+        },
+        {
+            "Bezeichnung_Label": "wenig gießen",
+            "Pflanzen_ID": 10,
+            "Bezeichnung": "Test 10 "
+        },
+        {
+            "Bezeichnung_Label": "dungen",
+            "Pflanzen_ID": 1,
+            "Bezeichnung": "Test"
+        },
+        {
+            "Bezeichnung_Label": "dungen",
+            "Pflanzen_ID": 3,
+            "Bezeichnung": "Test3"
+        },
+        {
+            "Bezeichnung_Label": "dungen",
+            "Pflanzen_ID": 5,
+            "Bezeichnung": "Test 5"
+        },
+        {
+            "Bezeichnung_Label": "dungen",
+            "Pflanzen_ID": 8,
+            "Bezeichnung": "Test8"
+        },
+        {
+            "Bezeichnung_Label": "dungen",
+            "Pflanzen_ID": 9,
+            "Bezeichnung": "Test 9"
+        },
+        {
+            "Bezeichnung_Label": "dungen",
+            "Pflanzen_ID": 11,
+            "Bezeichnung": "Test11"
+        },
+        {
+            "Bezeichnung_Label": "dungen",
+            "Pflanzen_ID": 12,
+            "Bezeichnung": "Test 12"
+        },
+        {
+            "Bezeichnung_Label": "dungen",
+            "Pflanzen_ID": 14,
+            "Bezeichnung": "Test 13"
+        },
+        {
+            "Bezeichnung_Label": "dungen",
+            "Pflanzen_ID": 15,
+            "Bezeichnung": "Test 20"
+        }
+    ]
+}
     return json.loads(json_data)
 
 data = load_json_data()
@@ -446,4 +513,4 @@ for line in data['Benachrichtigung']:
 if not answer :
             answer = "keine Benachrichtigungen!"
 print(answer)
-'''
+"""
