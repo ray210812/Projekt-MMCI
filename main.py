@@ -82,14 +82,14 @@ def edit(id):
     if  not file_exists :
         return "kein Bild hochgeladen"
     image =cv2.imread("static/Upload/"+str(id)+".jpg")
-    text,a=Tesseract.prepareImage(image)
+    text,a,b=Tesseract.prepareImage(image)
     result =Yolo.YoloModel.prediction(image)
     image1=Tesseract.editImage(a,image)
     image1=Yolo.YoloModel.draw_predictions(image1,result)
     success =cv2.imwrite('static/Auswertungen/'+str(id)+'.jpg', image1)
     print(success)
     labels = Yolo.YoloModel.getObjekts(result)
-    result=analyse(text,labels)
+    result=analyse((str(text)+str(b)),labels)
     _, buffer = cv2.imencode('.png', image1)
     img_str = base64.b64encode(buffer).decode('utf-8')
     img_data_url = f"data:image/png;base64,{img_str}"
@@ -186,6 +186,7 @@ def analyse(text,labels):
         "hydratisieren",
         "wässern",
         "feucht halten",
+        "wasser"
 
     ]
     

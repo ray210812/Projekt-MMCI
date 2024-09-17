@@ -13,37 +13,47 @@ def prepareImage(image):
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # Rauschen reduzieren
-    gray_image = cv2.medianBlur(gray_image, 3)
+    #gray_image = cv2.medianBlur(gray_image, 3)
     custom_config = r'--oem 3--psm 1'
-
+    cv2.imwrite(r'testergebnis0.jpg', gray_image)
     manualValue = 200
-   # preparedImage = cv2.threshold(gray_image, 0, 255, cv2.THRESH_BINARY |cv2.THRESH_OTSU)[1]
-    #extrahierter_text = pytesseract.image_to_string(preparedImage, lang='deu', config=custom_config)
+    #preparedImage = cv2.threshold(gray_image, 0, 255, cv2.THRESH_BINARY |cv2.THRESH_OTSU)[1]
+    #extrahierter_text = pytesseract.image_to_string(image , lang='deu', config=custom_config)
     #count = len(extrahierter_text)
+    #print(extrahierter_text)
     #cv2.imwrite(r'testergebnis0.jpg', preparedImage)
     _, preparedImage = cv2.threshold(gray_image, manualValue, 255, cv2.THRESH_BINARY)
     extrahierter_text = pytesseract.image_to_string(preparedImage, lang='deu', config=custom_config)
-    count = len(extrahierter_text)
+    text=extrahierter_text.replace(" ","")
+    text=text.replace("/n","")
+    count = len(text)
     cv2.imwrite(r'testergebnis1.jpg', preparedImage)
 
     manualValue = 100
     _, preparedImage1 = cv2.threshold(gray_image, manualValue, 255, cv2.THRESH_BINARY)
     cv2.imwrite(r'testergebnis2.jpg', preparedImage1)
     extrahierter_text2 = pytesseract.image_to_string(preparedImage1, lang='deu', config=custom_config)
-    count2 = len(extrahierter_text2)
+    text = extrahierter_text2.replace(" ", "")
+    text = text.replace("/n", "")
+    count2 = len(text)
 
     manualValue = 150
     _, preparedImage2 = cv2.threshold(gray_image, manualValue, 255, cv2.THRESH_BINARY)
     cv2.imwrite(r'testergebnis3.jpg', preparedImage2)
     extrahierter_text3 = pytesseract.image_to_string(preparedImage2, lang='deu', config=custom_config)
-    count3 = len(extrahierter_text3)
+    text = extrahierter_text3.replace(" ", "")
+    text = text.replace("/n", "")
+    count3 = len(text)
+    print("1 Anzahl"+str(count)+ extrahierter_text)
+    print("2 Anzahl" + str(count2)+extrahierter_text2)
+    print("3 Anzahl" + str(count3)+extrahierter_text3)
 
-    if count >= count2 & count >= count3:
-        return extrahierter_text, preparedImage
+    if count >= count2 and count >= count3:
+        return extrahierter_text, preparedImage, (extrahierter_text3+extrahierter_text2)
     if count2 >= count3:
-        return extrahierter_text2, preparedImage1
+        return extrahierter_text2, preparedImage1,(extrahierter_text+extrahierter_text3)
     else:
-        return extrahierter_text3, preparedImage2
+        return extrahierter_text3, preparedImage2,(extrahierter_text,extrahierter_text2)
 
 #Im Bild erkannte Objekte einzeichnen
 def editImage(preparedImage, image):
@@ -90,7 +100,7 @@ def editImage(preparedImage, image):
      #   cv2.imwrite(r'testergebnis\\'+file, b)
 
     #text.close()
-a,b = prepareImage(cv2.imread(r'static\\test'+'\\PXL_20240813_155317004.MP.jpg'))
+#a,b,c = prepareImage(cv2.imread(r'static\\test'+'\\PXL_20240813_155317004.MP.jpg'))
 
 #cv2.imwrite(r'static\\Auswertungen\\PXL_20240813_155335143.MP.jpg', b)
 #print(a)
