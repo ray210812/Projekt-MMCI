@@ -1,0 +1,45 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "D\u00fcngen 1x Monatlich"
+    },
+    {
+      "id": 1,
+      "name": "Gie\u00dfkanne"
+    },
+    {
+      "id": 2,
+      "name": "halb sonnig"
+    },
+    {
+      "id": 3,
+      "name": "keine Sonne"
+    },
+    {
+      "id": 4,
+      "name": "mittel oft gie\u00dfen"
+    },
+    {
+      "id": 5,
+      "name": "oft gie\u00dfen"
+    },
+    {
+      "id": 6,
+      "name": "schattig"
+    },
+    {
+      "id": 7,
+      "name": "sonnig"
+    },
+    {
+      "id": 8,
+      "name": "wenig gie\u00dfen"
+    }
+  ],
+  "info": {
+    "year": 2024,
+    "version": "1.0",
+    "contributor": "Label Studio"
+  }
+}

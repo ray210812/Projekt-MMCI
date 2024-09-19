@@ -44,16 +44,23 @@ def prepareImage(image):
     text = extrahierter_text3.replace(" ", "")
     text = text.replace("/n", "")
     count3 = len(text)
+    extrahierter_text4 ="2" #pytesseract.image_to_string(image)
+    text = extrahierter_text3.replace(" ", "")
+    text = text.replace("/n", "")
+    count4 = len(text)
     print("1 Anzahl"+str(count)+ extrahierter_text)
     print("2 Anzahl" + str(count2)+extrahierter_text2)
     print("3 Anzahl" + str(count3)+extrahierter_text3)
+    print("4 Anzahl" + str(count4) + extrahierter_text4)
 
-    if count >= count2 and count >= count3:
-        return extrahierter_text, preparedImage, (extrahierter_text3+extrahierter_text2)
-    if count2 >= count3:
-        return extrahierter_text2, preparedImage1,(extrahierter_text+extrahierter_text3)
+    if count >= count2 and count >= count3 and count >= count4:
+        return extrahierter_text, preparedImage, (extrahierter_text3+extrahierter_text2+extrahierter_text4)
+    if count2 >= count3 and count2 >= count4:
+        return extrahierter_text2, preparedImage1,(extrahierter_text+extrahierter_text3+extrahierter_text4)
+    if count3 >= count4:
+        return extrahierter_text3, preparedImage2,(extrahierter_text,extrahierter_text2+extrahierter_text4)
     else:
-        return extrahierter_text3, preparedImage2,(extrahierter_text,extrahierter_text2)
+        return extrahierter_text4, image, (extrahierter_text, extrahierter_text2 + extrahierter_text3)
 
 #Im Bild erkannte Objekte einzeichnen
 def editImage(preparedImage, image):

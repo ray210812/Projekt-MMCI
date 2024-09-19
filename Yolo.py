@@ -25,6 +25,7 @@ class YoloModel:
         with cls._lock:
             if cls._model is None:
                 cls._model = YOLO("runs\\detect\\train7\\weights\\best.pt")
+                #cls._model = YOLO("runs\\detect\\train7\\weights\\best.pt")
     # Bilderkennung durchführen
     @classmethod
     def prediction(cls, image):

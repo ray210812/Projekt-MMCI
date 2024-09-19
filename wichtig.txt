@@ -1,0 +1,14 @@
+pythonProjekt == Texterkennung + ein paar versuche (die meisten habe ich überschrieben )
+pythonProjekt2 ==BIlderkennung Tests und Modell trainiert 
+Bei Linux wird die Rasberry Pi Version empfohlen(Pfade angepasst)
+1. Neues Venv anlegen + activieren  
+2. python -m pip install --upgrade pip
+3. Je nach Betriebssystem muss Tesseract über Konsole (sudo apt-get install tesseract-ocr tesseract-ocr-deu ) oder über https://tesseract-ocr.github.io/tessdoc/Downloads runtergeladen und installiert werden.
+Bei Windows muss der Installationspfad in der Tesseract.py geändert werden(bei Linux gelöscht werden) 
+4. Abhängikeiten installieren requirements.txt
+5.Die neuste version von Pytorch führt zu einem BUG bei Yolo
+pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 --index-url https://download.pytorch.org/whl/cpu
+6. MYSQL Login Daten in sql.py anpassen 
+7. SQL Script create3.sql und storedProcedure.sql ausführen (MYSQL erforderlich)
+Es können keine Daten in Google Drive geupdatet werden (fehlende Berechtigungen)
+Zum starten  die IP Adressen in der main.py Zeile 336 und 61 anpassen.

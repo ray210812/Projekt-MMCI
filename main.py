@@ -58,7 +58,7 @@ def upload(variable):
 def add():
     myuuid= uuid.uuid4()
 
-    qrcode = segno.make_qr("192.168.0.28:5000/upload/"+str(myuuid))
+    qrcode = segno.make_qr("http://192.168.0.28:5000/upload/"+str(myuuid))
     buffer = BytesIO()
     qrcode.save(buffer, kind='png',scale=10)
     buffer.seek(0) # für pointer
@@ -177,12 +177,8 @@ def analyse(text,labels):
         "gießen",
         "bewässern",
         "benetzen",
-        "feuchten",
         "sprühen",
-        "tröpfchenbewässerung",
-        "tropfbewässerung",
-        "sprinkler",
-        "nassen",
+        "tröpfchen",
         "hydratisieren",
         "wässern",
         "feucht halten",
@@ -217,7 +213,6 @@ def analyse(text,labels):
         "ausgewogen",
         "mittelmäßig",
         "mäßig",
-        "ganz gut",
         "entsprechend",
         "regelmäßig",
         "rythmus",
